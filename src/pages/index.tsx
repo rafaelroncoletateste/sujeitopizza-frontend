@@ -25,6 +25,8 @@ export default function Home() {
               Acessar
             </Button>
           </form>
+
+          <span className={styles.text}>Não possui uma conta? Cadastre-se</span>
         </div>
       </main>
     </>
