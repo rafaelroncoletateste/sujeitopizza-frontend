@@ -5,6 +5,7 @@ import logo from "../../public/logo.svg";
 import styles from "../styles/home.module.scss";
 
 import { Input } from "../components/ui/Input";
+import { Button } from "../components/ui/Button";
 
 export default function Home() {
   return (
@@ -19,6 +20,10 @@ export default function Home() {
           <form>
             <Input type="text" placeholder="Digite seu E-mail" />
             <Input type="password" placeholder="Digite seu Senha" />
+
+            <Button type="button" loading={false}>
+              Acessar
+            </Button>
           </form>
         </div>
       </main>
