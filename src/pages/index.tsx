@@ -1,6 +1,10 @@
+import { FormEvent, useContext } from "react";
+
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+
+import { AuthContext } from "../contexts/AuthContext";
 
 import logo from "../../public/logo.svg";
 import styles from "../styles/home.module.scss";
@@ -9,6 +13,19 @@ import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 
 export default function SignUp() {
+  const { signIn } = useContext(AuthContext);
+
+  async function handleLogin(e: FormEvent) {
+    e.preventDefault();
+
+    let data = {
+      email: "email@teste.com",
+      password: "teste123",
+    };
+
+    await signIn(data);
+  }
+
   return (
     <>
       <Head>
@@ -18,7 +35,7 @@ export default function SignUp() {
         <Image src={logo} alt="Logo Sujeito Pizzaria" />
 
         <div className={styles.login}>
-          <form>
+          <form onSubmit={handleLogin}>
             <Input type="text" placeholder="Digite seu E-mail" />
             <Input type="password" placeholder="Digite seu Senha" />
 
