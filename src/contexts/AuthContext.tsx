@@ -27,7 +27,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserProps>();
   const isAuthenticated = !!user;
 
-  async function signIn() {}
+  async function signIn({ email, password }: SignInProps) {
+    console.log(`Email: ${email}\nSenha: ${password}`);
+  }
 
   return (
     <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>

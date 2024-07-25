@@ -1,4 +1,4 @@
-import { FormEvent, useContext } from "react";
+import { FormEvent, useContext, useState } from "react";
 
 import Head from "next/head";
 import Image from "next/image";
@@ -15,12 +15,17 @@ import { Button } from "../components/ui/Button";
 export default function SignUp() {
   const { signIn } = useContext(AuthContext);
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
   async function handleLogin(e: FormEvent) {
     e.preventDefault();
 
     let data = {
-      email: "email@teste.com",
-      password: "teste123",
+      email,
+      password,
     };
 
     await signIn(data);
@@ -36,10 +41,20 @@ export default function SignUp() {
 
         <div className={styles.login}>
           <form onSubmit={handleLogin}>
-            <Input type="text" placeholder="Digite seu E-mail" />
-            <Input type="password" placeholder="Digite seu Senha" />
+            <Input
+              type="text"
+              placeholder="Digite seu E-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              type="password"
+              placeholder="Digite sua Senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-            <Button type="button" loading={false}>
+            <Button type="button" loading={loading}>
               Acessar
             </Button>
           </form>
