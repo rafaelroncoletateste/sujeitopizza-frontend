@@ -23,12 +23,21 @@ export default function SignUp() {
   async function handleLogin(e: FormEvent) {
     e.preventDefault();
 
+    if (!email || !password) {
+      alert("Preencha os Dados Corretamente!");
+      return;
+    }
+
+    setLoading(true);
+
     let data = {
       email,
       password,
     };
 
-    signIn(data);
+    await signIn(data);
+
+    setLoading(false);
   }
 
   return (
