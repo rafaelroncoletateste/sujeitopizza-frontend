@@ -3,6 +3,8 @@ import { destroyCookie, setCookie, parseCookies } from "nookies";
 import { api } from "../services/apiClient";
 import Router from "next/router";
 
+import { toast } from "react-toastify";
+
 interface UserProps {
   id: string;
   name: string;
@@ -40,7 +42,7 @@ export function signOut() {
 
     Router.push("/");
   } catch {
-    alert("Erro ao Deslogar");
+    toast.error("Erro ao Deslogar");
   }
 }
 
@@ -70,9 +72,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
       // Passar o token para as próximas requisições
       api.defaults.headers["Authorization"] = `Bearer ${token}`;
 
+      toast.success("Logado com Sucesso!");
+
       Router.push("/dashboard");
     } catch {
-      alert("Erro ao Acessar");
+      toast.error("Erro ao Acessar!");
     }
   }
 
@@ -84,10 +88,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
         password,
       });
 
-      alert("Cadastrado com Sucesso");
+      toast.success("Cadastrado com Sucesso");
       Router.push("/");
     } catch {
-      alert("Erro ao Cadastrar");
+      toast.error("Erro ao Cadastrar");
     }
   }
 

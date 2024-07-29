@@ -12,6 +12,8 @@ import styles from "../styles/home.module.scss";
 import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 
+import { toast } from "react-toastify";
+
 export default function SignUp() {
   const { signIn } = useContext(AuthContext);
 
@@ -24,7 +26,7 @@ export default function SignUp() {
     e.preventDefault();
 
     if (!email || !password) {
-      alert("Preencha os Dados Corretamente!");
+      toast.warn("Preencha os Dados Corretamente!");
       return;
     }
 
