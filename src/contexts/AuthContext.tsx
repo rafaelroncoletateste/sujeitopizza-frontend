@@ -51,7 +51,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       setCookie(undefined, "@nextauth.token", token, {
         maxAge: 60 * 60 * 24 * 30, // 1 Mês
-        path: "/", // Quais rotas terão acesso ao cookie
+        path: "/", // Quais rotas terão acesso ao cookie (todas)
       });
 
       setUser({

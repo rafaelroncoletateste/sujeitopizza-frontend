@@ -22,10 +22,10 @@ export default function Home() {
 
           <form>
             <Input type="text" placeholder="Digite seu Nome" />
-            <Input type="text" placeholder="Digite seu E-mail" />
+            <Input type="email" placeholder="Digite seu E-mail" />
             <Input type="password" placeholder="Digite seu Senha" />
 
-            <Button type="button" loading={false}>
+            <Button type="submit" loading={false}>
               Cadastrar
             </Button>
           </form>

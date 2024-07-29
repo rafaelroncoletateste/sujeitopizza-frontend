@@ -28,7 +28,7 @@ export default function SignUp() {
       password,
     };
 
-    await signIn(data);
+    signIn(data);
   }
 
   return (
@@ -42,7 +42,7 @@ export default function SignUp() {
         <div className={styles.login}>
           <form onSubmit={handleLogin}>
             <Input
-              type="text"
+              type="email"
               placeholder="Digite seu E-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -54,7 +54,7 @@ export default function SignUp() {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <Button type="button" loading={loading}>
+            <Button type="submit" loading={loading}>
               Acessar
             </Button>
           </form>
