@@ -13,10 +13,17 @@ type AuthContextData = {
   user: UserProps;
   isAuthenticated: boolean;
   signIn: (credentials: SignInProps) => Promise<void>;
+  signUp: (credentials: SignUpProps) => Promise<void>;
   signOut: () => void;
 };
 
 type SignInProps = {
+  email: string;
+  password: string;
+};
+
+type SignUpProps = {
+  name: string;
   email: string;
   password: string;
 };
@@ -63,14 +70,31 @@ export function AuthProvider({ children }: AuthProviderProps) {
       // Passar o token para as próximas requisições
       api.defaults.headers["Authorization"] = `Bearer ${token}`;
 
-      Router.push("/dashboard")
+      Router.push("/dashboard");
     } catch {
       alert("Erro ao Acessar");
     }
   }
 
+  async function signUp({ name, email, password }: SignUpProps) {
+    try {
+      api.post("/users", {
+        name,
+        email,
+        password,
+      });
+
+      alert("Cadastrado com Sucesso");
+      Router.push("/");
+    } catch {
+      alert("Erro ao Cadastrar");
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, signIn, signOut, signUp }}
+    >
       {children}
     </AuthContext.Provider>
   );
