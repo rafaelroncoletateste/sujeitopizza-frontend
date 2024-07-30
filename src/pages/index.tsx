@@ -1,4 +1,5 @@
 import { FormEvent, useContext, useState } from "react";
+import { GetServerSideProps } from "next";
 
 import Head from "next/head";
 import Image from "next/image";
@@ -13,6 +14,8 @@ import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/Button";
 
 import { toast } from "react-toastify";
+
+import { canSSRGuest } from "../utils/canSSRGuest";
 
 export default function SignUp() {
   const { signIn } = useContext(AuthContext);
@@ -80,3 +83,9 @@ export default function SignUp() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = canSSRGuest(async (ctx) => {
+  return {
+    props: {}
+  }
+})
