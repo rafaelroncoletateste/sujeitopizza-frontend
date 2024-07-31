@@ -48,7 +48,7 @@ export default function SignUp() {
   return (
     <>
       <Head>
-        <title>SujeitoPizza - Faça seu Login</title>
+        <title>Faça seu Login - Sujeito Pizzaria</title>
       </Head>
       <main className={styles.containerCenter}>
         <Image src={logo} alt="Logo Sujeito Pizzaria" />
@@ -84,8 +84,10 @@ export default function SignUp() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = canSSRGuest(async (ctx) => {
-  return {
-    props: {}
+export const getServerSideProps: GetServerSideProps = canSSRGuest(
+  async (ctx) => {
+    return {
+      props: {},
+    };
   }
-})
+);
