@@ -3,12 +3,28 @@ import Head from "next/head";
 
 import { Header } from "../../components/Header";
 import styles from "./styles.module.scss";
+import { toast } from "react-toastify";
+
+import { setupAPIClient } from "../../services/api";
 
 export default function Category() {
   const [name, setName] = useState("");
 
   async function handleRegister(e: FormEvent) {
     e.preventDefault();
+
+    if (!name) {
+      toast.error("Preencha Todos os Campos!");
+      return;
+    }
+
+    const apiClient = setupAPIClient();
+    await apiClient.post("/category", {
+      name: name,
+    });
+
+    toast.success("Criado com Sucesso!");
+    setName("");
   }
 
   return (
