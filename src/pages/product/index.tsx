@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 
 import Head from "next/head";
 import styles from "./styles.module.scss";
@@ -7,6 +7,7 @@ import { Header } from "../../components/Header";
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
 import { FiUpload } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 import { setupAPIClient } from "../../services/api";
 
@@ -26,6 +27,10 @@ export default function Product({ categoryList }: CategoryProps) {
   const [categories, setCategories] = useState(categoryList || []);
   const [categorySelected, setCategorySelected] = useState(0);
 
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+
   function handleFile(e: ChangeEvent<HTMLInputElement>) {
     if (!e.target.files) {
       return;
@@ -41,6 +46,37 @@ export default function Product({ categoryList }: CategoryProps) {
     setCategorySelected(e.target.value);
   }
 
+  async function handleRegister(e: FormEvent) {
+    e.preventDefault();
+
+    try {
+      const data = new FormData();
+
+      if (!imageAvatar || !name || !price || !description) {
+        toast.error("Preencha Todos os Campos!");
+        return;
+      }
+
+      data.append("name", name);
+      data.append("price", price);
+      data.append("description", description);
+      data.append("file", imageAvatar);
+      data.append("category_id", categories[categorySelected].id);
+
+      const apiClient = setupAPIClient();
+      await apiClient.post("/product", data);
+
+      toast.success("Cadastrado com Sucesso!");
+
+      setAvatarUrl("");
+      setName("");
+      setPrice("");
+      setDescription("");
+    } catch {
+      toast.error("Erro ao Cadastrar!");
+    }
+  }
+
   return (
     <>
       <Head>
@@ -51,7 +87,7 @@ export default function Product({ categoryList }: CategoryProps) {
         <main className={styles.container}>
           <h1>Novo Produto</h1>
 
-          <form className={styles.form}>
+          <form onSubmit={handleRegister} className={styles.form}>
             <label className={styles.labelAvatar}>
               {!avatarUrl && (
                 <span>
@@ -89,15 +125,24 @@ export default function Product({ categoryList }: CategoryProps) {
             <input
               type="text"
               placeholder="Digite o Nome do Produto"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className={styles.input}
             />
             <input
               type="text"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
               placeholder="Digite o Preço do Produto"
               className={styles.input}
             />
 
-            <textarea placeholder="Descreva seu Produto" />
+            <textarea
+              placeholder="Descreva seu Produto"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className={styles.input}
+            />
 
             <button type="submit" className={styles.buttonAdd}>
               Cadastrar
