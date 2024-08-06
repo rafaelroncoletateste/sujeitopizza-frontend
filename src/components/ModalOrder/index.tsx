@@ -16,7 +16,7 @@ export function ModalOrder({ isOpen, order, onRequestClose }: ModalOrderProps) {
       top: "50%",
       bottom: "auto",
       left: "50%",
-      ridht: "auto",
+      right: "auto",
       padding: "30px",
       transform: "translate(-50%, -50%)",
       backgroundColor: "#1d1d2e",
