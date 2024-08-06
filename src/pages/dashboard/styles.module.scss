@@ -28,6 +28,11 @@
   flex-direction: column;
 }
 
+.emptyList {
+  font-size: 1.2rem;
+  color: var(--white);
+}
+
 .orderItem {
   background-color: var(--dark-900);
   margin-bottom: 1rem;
